@@ -1,0 +1,45 @@
+[Use world schema:
+Q1: List all information in countrylanguage table.
+Q2: Get the name, Continent, Region, Population, LocalName of a country.]
+
+Ans Q1:  
+SELECT *
+FROM CountryLanguage;
+
+Ans Q2:
+SELECT Name, Continent, Region, Population, LocalName
+FROM Country;
+
+Use sakila schema:
+Q3: Get the title, description, release_year, rental_rate of the film that been released in 2006.
+Q4: List the customer_id, inventory_id who borrowed film from staff with id of 1.
+
+Ans Q3:
+SELECT  title, description, release_year, rental_rate
+FROM film
+WHERE release_year = "2006";
+
+Ans Q4:
+SELECT  customer_id, inventory_id
+FROM rental
+WHERE staff_id = "1";
+
+Use classicmodels:
+Q5: Get detailed information of a product which has over than 5000 of qualityInStock and MSRP is
+twice bigger than buyPrice. Order the results by product name in alphabetical order.
+Q6. From payments table, list customers who spent more than 30000 in total, order the result by the
+total amount from highest to lowest.
+
+Ans Q5:
+SELECT  productName, productLine, productDescription, quantityInStock, MSRP, buyPrice
+FROM products
+WHERE (quantityInStock > "5000") and (MSRP > (2*buyPrice));
+
+Ans Q6:
+SELECT  customerNumber, amount
+FROM payments
+WHERE amount > "30000"
+GROUP BY customerNumber
+ORDER BY amount DESC;
+
+Eoin Holland, 11-10-2018
