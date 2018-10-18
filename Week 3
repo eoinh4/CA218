@@ -1,0 +1,34 @@
+Q1. From the orderdetails table, list the total amount and the number of different types of
+product in each order.
+
+ANS.
+SELECT orderNumber, SUM(quantityOrdered), COUNT(productCode)
+FROM orderdetails
+GROUP BY orderNumber;
+
+Q2. List the count of the orders shipped for each customer. Order by times of order from highest
+to lowest.
+
+ANS
+SELECT customerNumber, COUNT(orderNumber) as "OrderCount"
+FROM orders
+GROUP BY customerNumber
+ORDER BY orderCount DESC;
+
+Q3. Count the number of shipped orders made by customer 350.
+
+ANS
+SELECT customerNumber, COUNT(orderNumber) as "OrderCount"
+FROM orders
+WHERE customerNumber = "350"
+GROUP BY customerNumber
+ORDER BY orderCount DESC;
+
+Q4. List all the customers that made more shipped orders than customer 350.
+(this is your first nested query)
+
+ANS
+SELECT customerNumber, COUNT(orderNumber) as "orderCount"
+FROM orders 
+HAVING orderCount >(SELECT COUNT(orderNumber) as "orderCount" FROM orders WHERE customerNumber = "350");
+[INCOMPLETE]
