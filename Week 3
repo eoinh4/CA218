@@ -28,12 +28,7 @@ Q4. List all the customers that made more shipped orders than customer 350.
 (this is your first nested query)
 
 ANS
-SELECT customerNumber, COUNT(orderNumber) as "OrderCount"
+SELECT customerNumber, COUNT(orderNumber) as orderCount
 FROM orders
-HAVING OrderCount > (
-
-SELECT COUNT(orderNumber) as "OrderCount"
-FROM orders
-WHERE customerNumber = "350"
-)
-;
+GROUP BY customerNumber
+HAVING COUNT(orderNumber) > (SELECT COUNT(orderNumber) FROM orders WHERE customerNumber = "350" GROUP BY customerNumber);
