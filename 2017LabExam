@@ -1,0 +1,51 @@
+======Part 1======
+
+Q1.
+
+SELECT title, release_year, description, rating
+FROM film
+WHERE rating = "PG";
+
+Q2.
+
+SELECT film.title, film.release_year,film.rating, category.name
+FROM film
+JOIN film_category ON film.film_id=film_category.film_id
+JOIN category ON film_category.category_id=category.category_id
+WHERE category.name LIKE "A%"
+ORDER BY film.title;
+
+======Part 2======
+
+Q1.
+
+SELECT City.name,Country.Population, City.population, Country.name, (100*City.population/Country.population) as "PopulationPercentage"
+FROM City
+JOIN  Country ON  City.CountryCode=Country.code
+WHERE Country.LifeExpectancy BETWEEN 50 AND 70
+ORDER BY PopulationPercentage DESC;
+
+Q2.
+
+SELECT Name, Population, Continent as c
+FROM Country
+where Population > 
+(SELECT AVG(Population) FROM Country GROUP BY Continent having Continent = c)
+
+======Part 3======
+
+Q1.
+
+SELECT products.productName, productlines.textDescription, SUM(quantityOrdered)
+FROM products
+JOIN productlines on productlines.productline=products.productline
+JOIN orderdetails on products.productcode=orderdetails.productCode
+GROUP BY productlines.productLine
+ORDER BY SUM(quantityOrdered) DESC;
+
+(Q1. Could be wrong, I'm not sure I really understand what is being asked.)
+
+Q2.
+
+
+
