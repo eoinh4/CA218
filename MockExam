@@ -1,0 +1,41 @@
+Q1
+
+SELECT productcode, productline, productName, productVendor, MSRP
+FROM products
+ORDER BY MSRP DESC;
+
+Q2
+
+SELECT customers.customerName, customers.City, customers.phone, COUNT(orders.orderNumber) as "ok"
+FROM customers
+JOIN orders ON customers.customerNumber=orders.customerNumber
+GROUP BY customers.customerNumber
+HAVING ok >= 5
+ORDER BY ok DESC;
+
+Q3
+
+SELECT  products.productname, products.productvendor, SUM(quantityOrdered) as "quant"
+FROM products
+JOIN  orderdetails ON products.productCode=orderdetails.productcode
+GROUP BY products.productCode
+ORDER BY quant DESC;
+
+b)
+
+Q4
+
+INSERT INTO  City (Name, CountryCode, District, Population)
+VALUES ("Castlegregory", "IRL", "Munster", 205) 
+
+Q5
+
+SELECT Country.Name, Country.Population, City.Name, City.Population
+FROM Country
+JOIN City ON City.CountryCode=Country.Code
+WHERE Country.Population > 10000000
+GROUP BY City.Name
+ORDER BY Country.Population DESC;
+
+Q6
+
