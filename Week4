@@ -1,0 +1,32 @@
+Q1.
+
+SELECT  *, (buyPrice - (SELECT AVG(buyPrice) FROM products)) as "Difference"
+FROM products
+WHERE buyPrice > (SELECT AVG(buyPrice) FROM products)
+GROUP BY productName
+ORDER BY Difference DESC;
+
+
+Q2.
+
+SELECT productCode, productName, buyPrice, MSRP, quantityInStock, (MSRP - buyPrice) as "Profit",  ((MSRP - buyPrice) * quantityInStock) as "TotalProfit"
+FROM products
+GROUP BY  productCode
+HAVING Profit > (SELECT AVG(MSRP - buyPrice) FROM products)
+ORDER BY TotalProfit DESC;
+
+Q3.
+
+SELECT customerNumber, customerName, country, creditLimit
+FROM customers
+GROUP BY customerNumber
+HAVING (creditLimit > (SELECT MIN(creditLimit) FROM customers WHERE country = "Austria") OR COUNT(salesRepEmployeeNumber) > 1)
+ORDER BY creditLimit DESC;
+
+Q4.
+
+SELECT country, MIN(creditLimit) as "MinCredit"
+FROM customers
+GROUP BY country
+HAVING MinCredit > (SELECT MIN(creditLimit) FROM customers WHERE country = "Austria")
+ORDER BY MinCredit DESC;
