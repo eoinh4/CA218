@@ -1,0 +1,31 @@
+Q1.
+
+SELECT City.Name, City.Population, City.CountryCode, CountryLanguage.Language
+FROM City
+JOIN CountryLanguage ON City.CountryCode = CountryLanguage.CountryCode
+WHERE CountryLanguage.language = "English"
+ORDER BY City.Population DESC;
+
+Q2.
+
+SELECT Country.Name, City.Name, Country.Population, City.Population, (100*(City.Population/Country.Population)) as "PopulationPercentage"
+FROM Country
+JOIN City ON Country.Code=City.CountryCode
+ORDER BY Country.Name ASC;
+
+Q3.
+
+SELECT customers.customerNumber, customers.customerName, customers.phone, max(payments.amount)
+FROM customers
+INNER JOIN  payments ON customers.customerNumber=payments.customerNumber
+GROUP BY customers.customerNumber
+HAVING max(payments.amount) > (SELECT max(payments.amount) FROM customers JOIN  payments ON customers.customerNumber=payments.customerNumber WHERE customers.customerName LIKE "Signal Gift%")
+ORDER BY max(payments.amount) DESC;
+
+Q4.
+
+SELECT customers.customerNumber, customers.customerName, customers.phone, COUNT(orders.orderNumber)
+FROM customers
+LEFT outer JOIN orders ON  customers.customerNumber=orders.customerNumber
+GROUP BY customers.customerNumber
+HAVING COUNT(orders.orderNumber) = 0;
